@@ -55,7 +55,7 @@ export class _SQLiteStore implements NanoSQLStorageAdapter {
             return;
         }
         console.log(`NanoSQL "${this._id}" using SQLite.`);
-        this._db = window["sqlitePlugin"].openDatabase({name: `${this._id}_db`});
+        this._db = window["sqlitePlugin"].openDatabase({name: `${this._id}_db`, location: "default"});
 
         new ALL(Object.keys(this._pkKey).map((table) => {
             return (nextKey) => {
