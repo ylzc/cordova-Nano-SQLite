@@ -3,11 +3,10 @@
 The most powerful little database, now in your mobile device!
 
 <img src="https://raw.githubusercontent.com/ClickSimply/Nano-SQL/master/logo.png" alt="nanoSQL Logo">
-<img src="https://raw.githubusercontent.com/ClickSimply/Nano-SQL/master/quick-demo.gif" alt="Demo">
 
 What if your app's data store and permenent storage where one and the same?  NanoSQL is the quickest way to get SQL power into your app. You get tons of RDBMS perks like joins, groupby, functions and orderby with strong runtime type casting, events, and caching.  
 
-This is a special plugin written for NanoSQL that uses IndexedDB/WebSQL in the browser for testing, then switches over to a full SQLite database on the device *with exactly the same API!*.  Test all day long in the browser, then get a full real database on the device with **zero** effort.
+This is a special plugin written for NanoSQL that uses IndexedDB/WebSQL in the browser for testing, then switches over to a full SQLite database on the device *with exactly the same API!*  Test all day long in the browser, then get a full real database on the device with **zero** effort.
 
 * [Todo Example](https://nanosql.io/react-todo/)
 * [Draw Example](https://nanosql.io/react-draw/)
@@ -43,7 +42,7 @@ document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
   
     new initNanoSQL(
         (nSQL) => {
-            // setp the database, no queries here...
+            // setup the database, no queries here...
             nSQL('users') //  "users" is our table name.
             .model([ // Declare data model
                 {key:'id',type:'int',props:['pk','ai']}, // pk == primary key, ai == auto incriment
@@ -51,14 +50,14 @@ document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
                 {key:'age', type:'int'}
             ])
             .config({ // all config parameters work except "mode" which is overwritten by the plugin.
-                id: "my_db",
+                id: "myApp", // used as SQLite database name
                 history: true
             })
         }
     ).connect().then((result, nSQL) => {
         // window.nSQL() will now also work, we can do queries now!
 
-        nSQL()
+        nSQL("users")
         .query('upsert',{ // Add a record
                 name:"bill", age: 20
         }).exec()
