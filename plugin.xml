@@ -5,16 +5,4 @@
     <description>Cordova Device Plugin</description>
     <license>MIT</license>
     <keywords>database, json, collection, records, node, nodejs, sql, orm, nosql, DBMS, data, query, SQLite, JSON, CSV, persistent, immutable, undo, redo, immutablejs, sorting, filtering, filter, sort, somesql, nanosql, levelDB, leveldb, indexeddb, level DB, Indexed DB, trie, tree</keywords>
-    <js-module src="lib/nanosqlite.js" name="NanoSQLite">
-        <clobbers target="NanoSQLite" />
-    </js-module>
-    <platform name="ios">
-        <config-file target="config.xml" parent="/*">
-            <feature name="Device">
-                <param name="ios-package" value="CDVDevice"/>
-            </feature>
-        </config-file>
-        <header-file src="src/ios/CDVDevice.h" />
-        <source-file src="src/ios/CDVDevice.m" />
-    </platform>
 </plugin>
