@@ -1,0 +1,76 @@
+{
+    "name": "cordova-plugin-nano-sqlite",
+    "version": "1.0.0",
+    "description": "NanoSQL SQLite Plugin for Cordova",
+    "main": "lib/index.js",
+    "typings":"lib/index.d.ts",
+    "scripts": {
+        "build": "rm -rf lib/* && tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ClickSimply/cordova-Nano-SQLite.git"
+    },
+    "keywords": [
+        "ecosystem:cordova",
+        "cordova-android",
+        "cordova-ios",
+        "cordova-osx",
+        "cordova-windows",
+        "database",
+        "json",
+        "collection",
+        "records",
+        "sql",
+        "orm",
+        "nosql",
+        "DBMS",
+        "data",
+        "query",
+        "DOM-storage",
+        "SQLite",
+        "JSON",
+        "CSV",
+        "iteration",
+        "sequence",
+        "stateless",
+        "functional",
+        "datastructure",
+        "data",
+        "lazy",
+        "persistent",
+        "immutable",
+        "undo",
+        "redo",
+        "immutablejs",
+        "redux",
+        "sorting",
+        "filtering",
+        "filter",
+        "sort",
+        "somesql",
+        "nanosql",
+        "isomorphic",
+        "universal",
+        "trie",
+        "tree"
+    ],
+    "engines": {
+        "cordovaDependencies": {
+            "1.0.0": {
+                "cordova-sqlite-storage": "<2.0.0"
+            }
+        }
+    },
+    "author": "Scott Lott <Scott@ClickSimply.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ClickSimply/cordova-Nano-SQLite/issues"
+    },
+    "homepage": "https://github.com/ClickSimply/cordova-Nano-SQLite#readme",
+    "dependencies": {
+        "@types/websql": "0.0.27",
+        "nano-sql": "^1.0.2",
+        "typescript": "^2.6.2"
+    }
+}
