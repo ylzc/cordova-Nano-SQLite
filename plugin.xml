@@ -5,5 +5,5 @@
     <description>Cordova Device Plugin</description>
     <license>MIT</license>
     <keywords>database, json, collection, records, node, nodejs, sql, orm, nosql, DBMS, data, query, SQLite, JSON, CSV, persistent, immutable, undo, redo, immutablejs, sorting, filtering, filter, sort, somesql, nanosql, levelDB, leveldb, indexeddb, level DB, Indexed DB, trie, tree</keywords>
-    <dependency id="cordova-sqlite-storage" version="2.1.4">
+    <dependency id="cordova-sqlite-storage" version="2.1.4" />
 </plugin>
