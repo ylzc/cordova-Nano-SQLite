@@ -1,4 +1,4 @@
-# [1.0.2]
+# [1.0.2] 12-127-2017
 - Added advanced usage to Readme.
 - Updated lib to make advanced usage easier.
 
