@@ -1,5 +1,5 @@
 import { nSQL, NanoSQLInstance } from "nano-sql";
-import { _SQLiteStore } from "./sqlite-adapter";
+import { SQLiteStore } from "./sqlite-adapter";
 import { Promise } from "lie-ts";
 
 declare const cordova: any;
@@ -36,7 +36,7 @@ export class initNanoSQL {
             let config = this._nsql.getConfig();
             this._nsql.config({
                 ...config,
-                mode: cordova && window["sqlitePlugin"] ? new _SQLiteStore() : "PERM"
+                mode: cordova && window["sqlitePlugin"] ? new SQLiteStore() : "PERM"
             }).connect().then(() => {
                 res([], (table?: string) => {
                     return this._nsql.table(table);

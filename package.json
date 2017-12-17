@@ -1,12 +1,13 @@
 {
     "name": "cordova-plugin-nano-sqlite",
     "version": "1.0.1",
-    "description": "NanoSQL SQLite Plugin for Cordova",
+    "description": "NanoSQL SQLite Plugin.  Uses IndexedDB/WebSQL when testing in the browser, then uses SQLite on the device with the exact same API. Includes typescript support, an ORM and undo/redo built in.",
     "main": "lib/index.js",
     "typings":"lib/index.d.ts",
     "scripts": {
         "build": "rm -rf lib/* && tsc"
     },
+    "homepage": "https://nanosql.io/",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ClickSimply/cordova-Nano-SQLite.git"
@@ -67,7 +68,6 @@
     "bugs": {
         "url": "https://github.com/ClickSimply/cordova-Nano-SQLite/issues"
     },
-    "homepage": "https://github.com/ClickSimply/cordova-Nano-SQLite#readme",
     "dependencies": {
         "@types/websql": "0.0.27",
         "nano-sql": "^1.0.2",

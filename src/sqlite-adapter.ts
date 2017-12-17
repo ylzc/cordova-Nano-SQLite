@@ -18,7 +18,7 @@ export interface CordovaSQLiteDB {
  * @implements {NanoSQLStorageAdapter}
  */
 // tslint:disable-next-line
-export class _SQLiteStore implements NanoSQLStorageAdapter {
+export class SQLiteStore implements NanoSQLStorageAdapter {
 
 
     private _pkKey: {

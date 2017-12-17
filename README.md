@@ -33,7 +33,7 @@ cordova plugin add cordova-plugin-nano-sqlite --save
 
 ## Simple Usage
 
-Currently only supports use with Webpack and other similar bundlers.
+Currently only supports use with Webpack and other similar bundlers.  Works with Babel, ES5 and Typescript projects out of the box.
 
 ```ts
 import { initNanoSQL } from "cordova-plugin-nano-sqlite";
@@ -96,6 +96,28 @@ document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
 });
 
 ```
+
+## Advanced Usage
+
+Basically, this plugin is just a NanoSQL Adapter for the SQLite Cordova plugin with a small wrapper.  The code above handles switching between the different database modes for you to make things easier, but if you need extra control you can just use the adapter directly.
+
+```ts
+import { SQLiteStore } from "cordova-plugin-nano-sqlite/lib/sqlite-adapter";
+
+document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
+  
+    nSQL("table")
+    .model([...])
+    .config({
+        mode: cordova ? new SQLiteStore() : "PERM"
+    })
+    .connect().then....
+
+});
+```
+
+And that's it, you can use this just like you would use NanoSQL in the browser or anywhere else.  The API is exactly the same.
+
 
 ## More detailed use cases, examples and documentation: 
 [Documentation](https://docs.nanosql.io/)
