@@ -5,7 +5,7 @@ export interface CordovaSQLiteDB {
     sqlBatch: (queries: (string | any[])[], onSuccess: () => void, onFail: (err: Error) => void) => void;
     executeSql: (sql: string, vars: any[], onSuccess: (result: SQLResultSet) => void, onFail: (err: Error) => void) => void;
 }
-export declare class _SQLiteStore implements NanoSQLStorageAdapter {
+export declare class SQLiteStore implements NanoSQLStorageAdapter {
     private _pkKey;
     private _pkType;
     private _dbIndex;

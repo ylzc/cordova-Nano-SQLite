@@ -1,4 +1,7 @@
-# [1.0.2] 12-127-2017
+# [1.0.3] 12-24-2017
+- Added better checking for cordova variable.
+
+# [1.0.2] 12-12-2017
 - Added advanced usage to Readme.
 - Updated lib to make advanced usage easier.
 

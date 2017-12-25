@@ -36,7 +36,7 @@ export class initNanoSQL {
             let config = this._nsql.getConfig();
             this._nsql.config({
                 ...config,
-                mode: cordova && window["sqlitePlugin"] ? new SQLiteStore() : "PERM"
+                mode: typeof cordova !== undefined && window["sqlitePlugin"] ? new SQLiteStore() : "PERM"
             }).connect().then(() => {
                 res([], (table?: string) => {
                     return this._nsql.table(table);

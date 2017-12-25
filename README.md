@@ -104,7 +104,7 @@ Basically, this plugin is just a NanoSQL Adapter for the SQLite Cordova plugin w
 ```ts
 import { SQLiteStore } from "cordova-plugin-nano-sqlite/lib/sqlite-adapter";
 
-document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
+document.addEventListener(typeof cordova !== "undefined" ? "deviceready" : "DOMContentLoaded", () => {
   
     nSQL("table")
     .model([...])
