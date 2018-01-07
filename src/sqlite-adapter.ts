@@ -1,9 +1,10 @@
 import { NanoSQLStorageAdapter, DBKey, DBRow, _NanoSQLStorage } from "nano-sql/lib/database/storage";
 import { DataModel } from "nano-sql/lib/index";
 import { setFast } from "lie-ts";
-import { StdObject, hash, ALL, CHAIN, deepFreeze, uuid, timeid, _assign, generateID, sortedInsert, isAndroid } from "nano-sql/lib/utilities";
+import { StdObject, hash, fastALL, fastCHAIN, deepFreeze, uuid, timeid, _assign, generateID, sortedInsert, isAndroid } from "nano-sql/lib/utilities";
 import { DatabaseIndex } from "nano-sql/lib/database/db-idx";
 
+declare const cordova: any;
 
 export interface CordovaSQLiteDB {
     sqlBatch: (queries: (string|any[])[], onSuccess: () => void, onFail: (err: Error) => void) => void;
@@ -37,44 +38,41 @@ export class SQLiteStore implements NanoSQLStorageAdapter {
 
     private _db: CordovaSQLiteDB;
 
-    private _size: number;
-
-    constructor(size?: number) {
+    constructor() {
         this._pkKey = {};
         this._pkType = {};
         this._dbIndex = {};
-        this._size = (size || 0) * 1000 * 1000;
     }
 
     public setID(id: string) {
         this._id = id;
     }
 
+    public static getMode() {
+        return typeof cordova !== undefined && window["sqlitePlugin"] ? new SQLiteStore() : "PERM";
+    }
+
     public connect(complete: () => void) {
         if (!window["sqlitePlugin"]) {
-            return;
+            throw Error("SQLite plugin not installed or nanoSQL plugin called before device ready!");
         }
         console.log(`NanoSQL "${this._id}" using SQLite.`);
         this._db = window["sqlitePlugin"].openDatabase({name: `${this._id}_db`, location: "default"});
 
-        new ALL(Object.keys(this._pkKey).map((table) => {
-            return (nextKey) => {
-                this._sql(true, `CREATE TABLE IF NOT EXISTS ${table} (id BLOB PRIMARY KEY UNIQUE, data TEXT)`, [], () => {
-                    this._sql(false, `SELECT id FROM ${table}`, [], (result) => {
-                        let idx: any[] = [];
-                        for (let i = 0; i < result.rows.length; i++) {
-                            idx.push(result.rows.item(i).id);
-                        }
-                        // SQLite doesn't sort primary keys, but the system depends on sorted primary keys
-                        idx = idx.sort();
-                        this._dbIndex[table].set(idx);
-                        nextKey();
-                    });
+        fastALL(Object.keys(this._pkKey), (table, i, nextKey) => {
+            this._sql(true, `CREATE TABLE IF NOT EXISTS ${table} (id BLOB PRIMARY KEY UNIQUE, data TEXT)`, [], () => {
+                this._sql(false, `SELECT id FROM ${table}`, [], (result) => {
+                    let idx: any[] = [];
+                    for (let i = 0; i < result.rows.length; i++) {
+                        idx.push(result.rows.item(i).id);
+                    }
+                    // SQLite doesn't sort primary keys, but the system depends on sorted primary keys
+                    idx = idx.sort();
+                    this._dbIndex[table].set(idx);
+                    nextKey();
                 });
-            };
-        })).then(() => {
-            complete();
-        });
+            });
+        }).then(complete);
     }
 
     /**
@@ -247,10 +245,8 @@ export class SQLiteStore implements NanoSQLStorageAdapter {
     }
 
     public destroy(complete: () => void) {
-        new ALL(Object.keys(this._dbIndex).map((table) => {
-            return (done) => {
-                this.drop(table, done);
-            };
-        })).then(complete);
+        fastALL(Object.keys(this._dbIndex), (table, i, done) => {
+            this.drop(table, done);
+        }).then(complete);
     }
 }

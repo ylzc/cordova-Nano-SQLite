@@ -1,3 +1,7 @@
+# [1.1.0] 1-7-2018
+- Updated to newest version of nanoSQL.
+- Added new simpler API.
+
 # [1.0.3] 12-24-2017
 - Added better checking for cordova variable.
 

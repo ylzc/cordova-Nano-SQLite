@@ -11,9 +11,9 @@ export declare class SQLiteStore implements NanoSQLStorageAdapter {
     private _dbIndex;
     private _id;
     private _db;
-    private _size;
-    constructor(size?: number);
+    constructor();
     setID(id: string): void;
+    static getMode(): SQLiteStore | "PERM";
     connect(complete: () => void): void;
     private _chkTable(table);
     makeTable(tableName: string, dataModels: DataModel[]): void;

@@ -8,10 +8,7 @@ What if your app's data store and permenent storage where one and the same?  Nan
 
 This is a special plugin written for NanoSQL that uses IndexedDB/WebSQL in the browser for testing, then switches over to a full SQLite database on the device *with exactly the same API!*  Test all day long in the browser, then get a full real database on the device with **zero** effort.
 
-* [Todo Example](https://nanosql.io/react-todo/)
-* [Draw Example](https://nanosql.io/react-draw/)
-
-[Documentation](https://docs.nanosql.io/)
+## [Documentation](https://docs.nanosql.io/)
 
 ## Highlighted Features
 - Works on device and in the browser with same API.
@@ -31,88 +28,43 @@ This is a special plugin written for NanoSQL that uses IndexedDB/WebSQL in the b
 cordova plugin add cordova-plugin-nano-sqlite --save
 ```
 
-## Simple Usage
+## Usage
 
-Currently only supports use with Webpack and other similar bundlers.  Works with Babel, ES5 and Typescript projects out of the box.
-
-```ts
-import { initNanoSQL } from "cordova-plugin-nano-sqlite";
-
-document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
-  
-    new initNanoSQL(
-        (nSQL) => {
-            // setup the database, no queries here...
-            nSQL('users') //  "users" is our table name.
-            .model([ // Declare data model
-                {key:'id',type:'int',props:['pk','ai']}, // pk == primary key, ai == auto incriment
-                {key:'name',type:'string'},
-                {key:'age', type:'int'}
-            ])
-            .config({ // all config parameters work except "mode" which is overwritten by the plugin.
-                id: "myApp", // used as SQLite database name
-                history: true
-            })
-        }
-    ).connect().then((result, nSQL) => {
-        // window.nSQL() will now also work, we can do queries now!
-
-        nSQL("users")
-        .query('upsert',{ // Add a record
-                name:"bill", age: 20
-        }).exec()
-        .then((result, db) => {
-            return db.query('select').exec(); // select all rows from the current active table
-        }).then((result, db) => {
-            console.log(result) // <= [{id:1, name:"bill", age: 20}]
-        })
-    });
-
-});
-
-```
-
-## Multiple Databases
-
-You can prevent the plugin from setting the window.nSQL variable, allowing you to make multiple database instances that are scoped as you need them to be.
-
-Updating the previouse example:
-
-```ts
-import { initNanoSQL } from "cordova-plugin-nano-sqlite";
-
-document.addEventListener(cordova ? "deviceready" : "DOMContentLoaded", () => {
-  
-    new initNanoSQL(
-        (nSQL) => {
-            // setp the database, no queries here...
-        },
-        true // second optional argument prevents window.nSQL from being set.
-    ).connect().then((result, nSQL) => {
-        // window.nSQL() will NOT work.
-        // You must access nSQL using the argument passed into this function.
-    });
-
-});
-
-```
-
-## Advanced Usage
-
-Basically, this plugin is just a NanoSQL Adapter for the SQLite Cordova plugin with a small wrapper.  The code above handles switching between the different database modes for you to make things easier, but if you need extra control you can just use the adapter directly.
+Currently only supports use with Webpack and other similar bundlers.  
+Works with Babel, ES5 and Typescript projects out of the box.
 
 ```ts
 import { SQLiteStore } from "cordova-plugin-nano-sqlite/lib/sqlite-adapter";
+import { nSQL } from "nano-sql";
+
+nSQL().onConnected(() => {
+
+    // Database is no ready to query against.
+
+    // ReactDOM.render()...
+    // VueApp.$mount()...
+    // platformBrowserDynamic().bootstrapModule(AppModule);
+
+    nSQL("users").query('upsert', { // Add a record
+        name: "bill",
+        age: 20
+    }).exec().then((result) => {
+        return nSQL().query('select').exec(); // select all rows from the current active table
+    }).then((result) => {
+        console.log(result) // <= [{id:1, name:"bill", age: 20}]
+    })
+});
 
 document.addEventListener(typeof cordova !== "undefined" ? "deviceready" : "DOMContentLoaded", () => {
-  
-    nSQL("table")
-    .model([...])
+    nSQL("users")
+    .model([
+        { key: 'id', type: 'int', props: ['pk', 'ai'] },
+        { key: 'name', type: 'string' },
+        { key: 'age', type: 'int' }
+    ])
     .config({
-        mode: cordova ? new SQLiteStore() : "PERM"
-    })
-    .connect().then....
-
+        mode: SQLiteStore.getMode() // required
+    }).connect()
 });
 ```
 
