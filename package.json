@@ -1,6 +1,6 @@
 {
     "name": "cordova-plugin-nano-sqlite",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "NanoSQL SQLite Plugin.  Uses IndexedDB/WebSQL when testing in the browser, then uses SQLite on the device with the exact same API. Includes typescript support, an ORM and undo/redo built in.",
     "main": "lib/index.js",
     "typings": "lib/index.d.ts",
@@ -58,7 +58,7 @@
     ],
     "engines": {
         "cordovaDependencies": {
-            "1.0.0": {
+            "1.1.1": {
                 "cordova-sqlite-storage": "<2.0.0"
             }
         }
