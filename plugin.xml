@@ -6,4 +6,9 @@
     <license>MIT</license>
     <keywords>database, json, collection, records, node, nodejs, sql, orm, nosql, DBMS, data, query, SQLite, JSON, CSV, persistent, immutable, undo, redo, immutablejs, sorting, filtering, filter, sort, somesql, nanosql, levelDB, leveldb, indexeddb, level DB, Indexed DB, trie, tree</keywords>
     <dependency id="cordova-sqlite-storage" version="2.1.4" />
+    <!-- An existing config.xml -->
+    <edit-config file="AndroidManifest.xml" target="/manifest/application" mode="merge">
+
+    <!-- needs to change to -->
+    <edit-config file="app/src/main/AndroidManifest.xml" target="/manifest/application" mode="merge">
 </plugin>
